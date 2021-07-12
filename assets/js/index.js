@@ -61,17 +61,37 @@ function setupLocalStorage() {
 
     for (var i = 0; i < 9; i++) {
         var textAreaEl = $(`#input${i}`);
-        console.log(calendarEvents[i]);
-        console.log(textAreaEl);
         if (calendarEvents[i]) {
             textAreaEl.val(calendarEvents[i]);
         }
     }
 }
 
+// Set the background color of the calendar event
+// based on the current time of the day and when the event is
 function setColors() {
+
+    // Get the 24 hour value of the current time
+    var now = moment().format("H");
+
+    // Set each element
     for (var i = 0; i < 9; i++) {
-        $(`#input${i}`).addClass("bg-light");
+
+        // Get the element to set its background
+        var hourBlock = $(`#input${i}`);
+
+        // Get the 24 hour value of the time block
+        var hour = hourBlock.attr("data-hour");
+
+        // Set the background color of the calendar event
+        // based on whether it's upcoming, current, or past
+        if (now > hour) {
+            hourBlock.addClass("bg-secondary");
+        } else if (now < hour) {
+            hourBlock.addClass("bg-success");
+        } else if (now == hour) {
+            hourBlock.addClass("bg-danger");
+        }
     }
 }
 
