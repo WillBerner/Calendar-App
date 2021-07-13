@@ -1,4 +1,4 @@
-# Work Day Scheduler App
+# Workday Scheduler App
 
 An simple web application for scheduling one's workday. Created with jQuery, Bootstrap, localStorage, and Moment.js.
 
