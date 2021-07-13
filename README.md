@@ -8,3 +8,4 @@ The website can be viewed here:
 
 https://willberner.github.io/Calendar-App/
 
+<img width="937" alt="image" src="https://user-images.githubusercontent.com/25047954/125397481-01c3ef80-e37c-11eb-9c85-d6301aaf2cbc.png">
