@@ -1,14 +1,19 @@
 
 // Set up an element to display the current date
 function setupCurrentDateEl() {
-    var currentDay = moment().format("dddd, MMMM Do");
-    $("#currentDay").text(currentDay);
+
+    // Get the current day in a nice format and display it
+    $("#currentDay").text(moment().format("dddd, MMMM Do"));
 }
 
 // Set up the click handlers for saving calendar events
-// Hard to do algorithmically - if i replaces numbers,
-// then i is out of scope when the event handler actually fires
 function setupSaveButtonHandlers() {
+
+    // Hard to do algorithmically - if i replaces the numbers,
+    // then i is out of scope when the event handler actually fires,
+    // so id is undefined. There's only 9 anyway.
+
+    // Could've used an event.target implementation instead
 
     $("#saveItem0").on("click", () => {
         saveText(0);
@@ -42,23 +47,33 @@ function setupSaveButtonHandlers() {
 
 // Save each calendar event text to localstorage by inserting it into the array
 function saveText(id) {
-    var pastEvents = JSON.parse(localStorage.getItem("events"));
 
+    // Get the current events array from localstorage
+    var currentEvents = JSON.parse(localStorage.getItem("events"));
+
+    // Get the new input text the user has typed
     var inputText = $(`#input${id}`).val();
 
-    pastEvents[id] = inputText;
+    // Store the input text in the localstorage array at the correct time block
+    currentEvents[id] = inputText;
 
-    localStorage.setItem("events", JSON.stringify(pastEvents));
+    // Resave the array to localstorage
+    localStorage.setItem("events", JSON.stringify(currentEvents));
 }
 
 // Set up the local storage
 function setupLocalStorage() {
+
+    // Get an array of the events saved on the calendar
     var calendarEvents = JSON.parse(localStorage.getItem("events"));
+
+    // If there is no calendar array yet, create a new one and return
     if (!calendarEvents) {
         localStorage.setItem("events", JSON.stringify([]));
         return;
     }
 
+    // Populate in the calendar event elements with saved events
     for (var i = 0; i < 9; i++) {
         var textAreaEl = $(`#input${i}`);
         if (calendarEvents[i]) {
@@ -77,10 +92,10 @@ function setColors() {
     // Set each element
     for (var i = 0; i < 9; i++) {
 
-        // Get the element to set its background
+        // Get the time block element in order to set its background
         var hourBlock = $(`#input${i}`);
 
-        // Get the 24 hour value of the time block
+        // Get the 24 hour value of the time block via data-attributes
         var hour = hourBlock.attr("data-hour");
 
         // Set the background color of the calendar event
@@ -95,12 +110,21 @@ function setColors() {
     }
 }
 
-// Do any initial setup for the app
+// Do initial setup for the application:
 function init() {
+
+    // 1. Display current date
     setupCurrentDateEl();
+
+    // 2. Create event handlers for each save button
     setupSaveButtonHandlers();
+
+    // 3. Populate time blocks with previously saved events
     setupLocalStorage();
+
+    // 4. Set the colors of the time blocks based on the current time
     setColors();
 }
 
+// Start her up
 init();
