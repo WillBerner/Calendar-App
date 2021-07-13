@@ -6,7 +6,7 @@ Users can plan their workday by viewing a 9-5 schedule with hour blocks where th
 
 The website can be viewed here:
 
-https://willberner.github.io/Calendar-App/
+https://willberner.github.io/Workday-Scheduler-App/
 
 An image of the application:
 
